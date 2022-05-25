@@ -1,0 +1,25 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Hello') {
+            steps {
+                checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/iliasjr/jenkins.git']]])
+            }
+        }
+         stage('second stage') {
+            steps {
+                echo 'Hello World'}
+             
+         }
+              stage('Deploy') {
+               steps {
+                retry(3) {
+                    sh 'echo "hellowords"'
+                }
+
+              
+            }
+        }
+    }
+}
